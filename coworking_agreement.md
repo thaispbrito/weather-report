@@ -10,7 +10,7 @@ Both team members should have access to all project resources and have good comm
 ## Collaboration vs. Individual Work Expectations
 *Clarify your collaboration expectations - does your group want to write code together all of the time? Or divide work to do independently, then come together to share accomplishments? What tools and technologies can help your collaboration?*
 
-We decided to split the work, and also work with branches, while coming together when needed to align things with each other.
+We decided to work in separate branches, splitting the work between us while providing feedback to each other. We also decided to come together when needed to align our approaches, resolve issues, and support each other.
 
 ## Learning Style
 *How does each team member learn best in project settings?*
