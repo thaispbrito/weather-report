@@ -1,80 +1,92 @@
-// Wave 2: temperature controls
-"use strict";
-// Store the current temperature 
+'use strict';
+
+// DOM Element Selectors
+const tempDisplay = document.getElementById('tempValue');
+const increaseButton = document.getElementById('increaseTempControl');
+const decreaseButton = document.getElementById('decreaseTempControl');
+const landscape = document.getElementById('landscape');
+const cityInput = document.getElementById('cityNameInput');
+const cityDisplay = document.getElementById('headerCityName');
+
+// Store the default temperature
 const state = {
-    temperature: 72
+  temperature: 72
 };
+
 // Display the temperature
-const tempDisplay = document.querySelector("#tempValue");
-tempDisplay.textContent = state.temperature;
+const renderTemp = () => {
+  tempDisplay.textContent = state.temperature;
+};
+
 // Increase temperature by 1
 const increaseTemperature = () => {
-    state.temperature += 1;
-    tempDisplay.textContent = state.temperature;
-    updateTemperatureColor();
-    updateLandscape();
+  state.temperature += 1;
+  renderTemp();
+  updateTemperatureColor();
+  updateLandscape();
 };
-// Increase button works
-const increaseButton = document.querySelector("#increaseTempControl");
-increaseButton.addEventListener("click", increaseTemperature);
+
 // Decrease temperature by 1
 const decreaseTemperature = () => {
-    state.temperature -= 1;
-    tempDisplay.textContent = state.temperature;
-    updateTemperatureColor();
-    updateLandscape();
+  state.temperature -= 1;
+  renderTemp();
+  updateTemperatureColor();
+  updateLandscape();
 };
-// Decrease button works
-const decreaseButton = document.querySelector("#decreaseTempControl");
-decreaseButton.addEventListener("click", decreaseTemperature);
+
 // Change temperature color
 const updateTemperatureColor = () => {
-    const temperature = state.temperature;
-    
-    if (temperature >= 80) {
-        tempDisplay.className = "temp-hot";
-    } else if (temperature >= 70) {
-        tempDisplay.className = "temp-warm";
-    } else if (temperature >= 60) {
-        tempDisplay.className = "temp-mild";
-    } else if (temperature >= 50) {
-        tempDisplay.className = "temp-cool";
-    } else {
-        tempDisplay.className = "temp-cold";
-    }
+  const temperature = state.temperature;
+
+  if (temperature >= 80) {
+    tempDisplay.className = 'red';
+  } else if (temperature >= 70) {
+    tempDisplay.className = 'orange';
+  } else if (temperature >= 60) {
+    tempDisplay.className = 'yellow';
+  } else if (temperature >= 50) {
+    tempDisplay.className = 'green';
+  } else {
+    tempDisplay.className = 'teal';
+  }
 };
-// Show the color when the page loads
-updateTemperatureColor();
-// Find the landscape
-const landscape = document.querySelector("#landscape");
-// Change the lanscape 
+
+// Change the lanscape
 const updateLandscape = () => {
-    const temperature = state.temperature;
+  const temperature = state.temperature;
 
-    if (temperature >= 80) {
-        landscape.textContent = "🌵🐍🦂🏜🦂";
-    } else if (temperature >= 70) {
-        landscape.textContent = "🌸🌿🌼🌷🌻";
-    } else if (temperature >= 60) {
-        landscape.textContent = "🍃🪨🛤🌾🍃";
-    } else {
-        landscape.textContent = "🌲⛄️🍂🌲🍁";
-    }
+  if (temperature >= 80) {
+    landscape.textContent = '🐍🦂🌵🐍🏜';
+  } else if (temperature >= 70) {
+    landscape.textContent = '🌸🌿🌼🌻🌷';
+  } else if (temperature >= 60) {
+    landscape.textContent = '🌾🪨🛤🌾🍃';
+  } else {
+    landscape.textContent = '🌲⛄️🍂⛄️🌲';
+  }
 };
-// Show the landscape 
-updateLandscape();
 
-// Wave 3: City name
-// City input
-const cityInput = document.querySelector("#cityNameInput");
-// City display
-const cityDisplay = document.querySelector("#headerCityName");
 // Update city name
 const updateCityName = () => {
-    cityDisplay.textContent = cityInput.value;
-
+  cityDisplay.textContent = cityInput.value;
 };
-// City name changes
-cityInput.addEventListener("input", updateCityName);
-// Show the city name
-updateCityName();
+
+const render = () => {
+  renderTemp();
+  updateTemperatureColor();
+  updateLandscape();
+  updateCityName();
+};
+
+// Render the initial application state
+render();
+
+// Register all events
+const registerEventHandlers = () => {
+  increaseButton.addEventListener('click', increaseTemperature);
+  decreaseButton.addEventListener('click', decreaseTemperature);
+  cityInput.addEventListener('input', updateCityName);
+};
+
+// DOM listener
+document.addEventListener('DOMContentLoaded', registerEventHandlers);

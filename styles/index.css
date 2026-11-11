@@ -165,19 +165,3 @@ background-color: lightblue;
 background-color: lightsteelblue;
 }
 
-/* Wave 2: Temperature colors */
-.temp-hot {
-    color: red;
-}
-.temp-warm {
-    color: orange;
-}
-.temp-mild {
-    color: goldenrod;
-}
-.temp-cool {
-    color: green;
-}
-.temp-cold {
-    color: teal;
-}
