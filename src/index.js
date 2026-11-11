@@ -63,3 +63,18 @@ const updateLandscape = () => {
 };
 // Show the landscape 
 updateLandscape();
+
+// Wave 3: City name
+// City input
+const cityInput = document.querySelector("#cityNameInput");
+// City display
+const cityDisplay = document.querySelector("#headerCityName");
+// Update city name
+const updateCityName = () => {
+    cityDisplay.textContent = cityInput.value;
+
+};
+// City name changes
+cityInput.addEventListener("input", updateCityName);
+// Show the city name
+updateCityName();
