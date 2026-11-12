@@ -8,6 +8,8 @@ const landscape = document.getElementById('landscape');
 const cityInput = document.getElementById('cityNameInput');
 const cityDisplay = document.getElementById('headerCityName');
 const currentTempButton = document.getElementById('currentTempButton');
+const skySelect = document.getElementById('skySelect');
+const skyContainer = document.getElementById('sky');
 
 // Store the default temperature
 const state = {
@@ -57,13 +59,13 @@ const updateLandscape = () => {
   const temperature = state.temperature;
 
   if (temperature >= 80) {
-    landscape.textContent = '🐍🦂🌵🐍🏜';
+    landscape.textContent = '🐍 🦂 🌵 🐍 🏜';
   } else if (temperature >= 70) {
-    landscape.textContent = '🌸🌿🌼🌻🌷';
+    landscape.textContent = '🌸 🌿 🌼 🌻 🌷';
   } else if (temperature >= 60) {
-    landscape.textContent = '🌾🪨🛤🌾🍃';
+    landscape.textContent = '🌾 🪨 🛤 🌾 🍃';
   } else {
-    landscape.textContent = '🌲⛄️🍂⛄️🌲';
+    landscape.textContent = '🌲 ⛄️ 🍂 ⛄️ 🌲';
   }
 };
 
@@ -72,11 +74,27 @@ const updateCityName = () => {
   cityDisplay.textContent = cityInput.value;
 };
 
+// Update sky
+const updateSky = () => {
+  const sky = skySelect.value;
+
+  if (sky === 'Sunny') {
+    skyContainer.textContent = '☁️ ☁️ ☀️ ☁️ ☁️';
+  } else if (sky === 'Cloudy') {
+    skyContainer.textContent = '☁️ ☁️ 🌤 ☁️ ☁️';
+  } else if (sky === 'Rainy') {
+    skyContainer.textContent = '🌈 🌧 💧 🌦 🌈';
+  } else {
+    skyContainer.textContent = '❄️ 🌨 ❄️ 🌨 ❄️';
+  }
+};
+
 const render = () => {
   renderTemp();
   updateTemperatureColor();
   updateLandscape();
   updateCityName();
+  updateSky();
 };
 
 // Render the initial application state
@@ -88,6 +106,7 @@ const registerEventHandlers = () => {
   decreaseButton.addEventListener('click', decreaseTemperature);
   cityInput.addEventListener('input', updateCityName);
   currentTempButton.addEventListener('click', getCurrentTemp);
+  skySelect.addEventListener('change', updateSky);
 };
 
 // DOM listener
