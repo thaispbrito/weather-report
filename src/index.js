@@ -10,6 +10,10 @@ const cityDisplay = document.getElementById('headerCityName');
 const currentTempButton = document.getElementById('currentTempButton');
 const skySelect = document.getElementById('skySelect');
 const skyContainer = document.getElementById('sky');
+const resetButton = document.getElementById('cityNameReset');
+
+// Store the default city name
+const DEFAULT_CITY_NAME = cityInput.value;
 
 // Store the default temperature
 const state = {
@@ -89,6 +93,12 @@ const updateSky = () => {
   }
 };
 
+// Reset the city name
+const resetCityName = () => {
+  cityInput.value = DEFAULT_CITY_NAME;
+  updateCityName();
+};
+
 const render = () => {
   renderTemp();
   updateTemperatureColor();
@@ -107,6 +117,7 @@ const registerEventHandlers = () => {
   cityInput.addEventListener('input', updateCityName);
   currentTempButton.addEventListener('click', getCurrentTemp);
   skySelect.addEventListener('change', updateSky);
+  resetButton.addEventListener('click', resetCityName);
 };
 
 // DOM listener
