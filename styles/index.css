@@ -165,3 +165,8 @@ background-color: lightblue;
 background-color: lightsteelblue;
 }
 
+#gardenContent {
+    border-radius: 8px;
+    padding: 2rem;
+    background-color: #89CFF0;
+    }
