@@ -1,5 +1,28 @@
 'use strict';
 
+const DEFAULT_CITY_NAME = 'Seattle';
+
+const skyOptions = {
+  Sunny: '☁️ ☁️ ☀️ ☁️ ☁️',
+  Cloudy: '☁️ ☁️ 🌤 ☁️ ☁️',
+  Rainy: '🌈 🌧 💧 🌦 🌈',
+  Snowy: '❄️ 🌨 ❄️ 🌨 ❄️',
+};
+
+const landscapeOptions = {
+  hot: '🐍 🦂 🌵 🐍 🏜',
+  warm: '🌸 🌿 🌼 🌻 🌷',
+  mild: '🌾 🪨 🛤 🌾 🍃',
+  cold: '🌲 ⛄️ 🍂 ⛄️ 🌲',
+};
+
+// Define the application's default state
+const state = {
+  city: DEFAULT_CITY_NAME,
+  temperature: 72,
+  sky: 'Sunny',
+};
+
 // DOM Element Selectors
 const tempDisplay = document.getElementById('tempValue');
 const increaseButton = document.getElementById('increaseTempControl');
@@ -12,17 +35,21 @@ const skySelect = document.getElementById('skySelect');
 const skyContainer = document.getElementById('sky');
 const resetButton = document.getElementById('cityNameReset');
 
-// Store the default city name
-const DEFAULT_CITY_NAME = cityInput.value;
-
-// Store the default temperature
-const state = {
-  temperature: 72
+// Display the city
+const renderCity = () => {
+  cityInput.value = state.city;
+  cityDisplay.textContent = state.city;
 };
 
 // Display the temperature
 const renderTemp = () => {
   tempDisplay.textContent = state.temperature;
+};
+
+// Display the sky
+const renderSky = () => {
+  skySelect.value = state.sky;
+  skyContainer.textContent = skyOptions[state.sky];
 };
 
 // Increase temperature by 1
@@ -61,50 +88,45 @@ const updateTemperatureColor = () => {
 // Change the landscape
 const updateLandscape = () => {
   const temperature = state.temperature;
+  let landscapeType;
 
   if (temperature >= 80) {
-    landscape.textContent = '🐍 🦂 🌵 🐍 🏜';
+    landscapeType = 'hot';
   } else if (temperature >= 70) {
-    landscape.textContent = '🌸 🌿 🌼 🌻 🌷';
+    landscapeType = 'warm';
   } else if (temperature >= 60) {
-    landscape.textContent = '🌾 🪨 🛤 🌾 🍃';
+    landscapeType = 'mild';
   } else {
-    landscape.textContent = '🌲 ⛄️ 🍂 ⛄️ 🌲';
+    landscapeType = 'cold';
   }
+
+  landscape.textContent = landscapeOptions[landscapeType];
 };
 
 // Update city name
 const updateCityName = () => {
-  cityDisplay.textContent = cityInput.value;
+  state.city = cityInput.value;
+  renderCity();
 };
 
 // Update sky
 const updateSky = () => {
-  const sky = skySelect.value;
-
-  if (sky === 'Sunny') {
-    skyContainer.textContent = '☁️ ☁️ ☀️ ☁️ ☁️';
-  } else if (sky === 'Cloudy') {
-    skyContainer.textContent = '☁️ ☁️ 🌤 ☁️ ☁️';
-  } else if (sky === 'Rainy') {
-    skyContainer.textContent = '🌈 🌧 💧 🌦 🌈';
-  } else {
-    skyContainer.textContent = '❄️ 🌨 ❄️ 🌨 ❄️';
-  }
+  state.sky = skySelect.value;
+  renderSky();
 };
 
 // Reset the city name
 const resetCityName = () => {
-  cityInput.value = DEFAULT_CITY_NAME;
-  updateCityName();
+  state.city = DEFAULT_CITY_NAME;
+  renderCity();
 };
 
 const render = () => {
   renderTemp();
+  renderCity();
+  renderSky();
   updateTemperatureColor();
   updateLandscape();
-  updateCityName();
-  updateSky();
 };
 
 // Render the initial application state
@@ -122,6 +144,7 @@ const registerEventHandlers = () => {
 
 // DOM listener
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
+
 
 
 // Calling APIs
@@ -182,7 +205,7 @@ const getWeatherFromQuery = async query => {
 
 // Get Realtime Temperature
 const getCurrentTemp = async () => {
-  const city = cityInput.value;
+  const city = state.city;
 
   try {
     const weather = await getWeatherFromQuery(city);
